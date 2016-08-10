@@ -1,0 +1,113 @@
+filetype off
+
+call plug#begin('~/.config/nvim/plugged')
+
+" Buffers / Files / Windows management
+Plug 'szw/vim-ctrlspace'
+Plug 'tpope/vim-vinegar'
+Plug 'szw/vim-maximizer'
+Plug 'majutsushi/tagbar'
+Plug 'ervandew/supertab'
+
+" Navigation
+Plug 'Lokaltog/vim-easymotion'
+Plug 'kshenoy/vim-signature'
+Plug 'szw/vim-tags'
+
+" Selection
+Plug 'terryma/vim-expand-region'
+Plug 'terryma/vim-multiple-cursors'
+
+" Code formatting / commenting
+Plug 'Raimondi/delimitMate'
+Plug 'cohama/lexima.vim'
+Plug 'jgdavey/vim-blockle'
+Plug 'junegunn/vim-easy-align'
+Plug 'sickill/vim-pasta'
+Plug 'vim-scripts/indenthtml.vim'
+
+" Syntax highlighting / Linting tools
+Plug 'Shutnik/jshint2.vim'
+Plug 'editorconfig/editorconfig-vim'
+" Plug 'isRuslan/vim-es6'
+Plug 'kchmck/vim-coffee-script'
+Plug 'mustache/vim-mustache-handlebars'
+Plug 'pangloss/vim-javascript'
+Plug 'scrooloose/syntastic'
+Plug 'tpope/vim-haml'
+
+Plug 'Quramy/tsuquyomi'
+" Plug 'leafgarland/typescript-vim'
+Plug 'Shougo/vimproc.vim'
+
+" Database support
+
+Plug 'vim-scripts/dbext.vim'
+
+" Ruby / Rails
+
+Plug 'tpope/vim-bundler'
+Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-rails'
+Plug 'tpope/vim-rake'
+Plug 'tpope/vim-rvm'
+Plug 'vim-ruby/vim-ruby'
+
+" Text objects
+Plug 'kana/vim-textobj-entire'
+Plug 'kana/vim-textobj-lastpat'
+Plug 'kana/vim-textobj-line'
+Plug 'kana/vim-textobj-user'
+Plug 'glts/vim-textobj-comment'
+Plug 'szw/vim-commentary'
+
+" Git / Files History
+Plug 'tpope/vim-fugitive'
+Plug 'int3/vim-extradite'
+Plug 'airblade/vim-gitgutter'
+Plug 'sjl/gundo.vim'
+
+" Writing / workflow
+Plug 'reedes/vim-wordy'
+Plug 'reedes/vim-lexical'
+Plug 'reedes/vim-textobj-quote'
+Plug 'junegunn/goyo.vim'
+
+" Markdown support
+Plug 'plasticboy/vim-markdown'
+Plug 'junegunn/vim-xmark', { 'do': 'make' }
+Plug 'nelstrom/vim-markdown-folding'
+Plug 'szw/vim-kompleter'
+Plug 'reedes/vim-pencil'
+
+" Language support / spellcheckers / thesaurses
+Plug 'szw/vim-g'
+Plug 'jonhiggs/MacDict.vim'
+
+" Utils
+Plug 'tpope/vim-sleuth'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-unimpaired'
+Plug 'nelstrom/vim-qargs'
+Plug 'tpope/vim-repeat'
+Plug 'rking/ag.vim'
+Plug 'tpope/vim-eunuch'
+
+" Themes / colours
+Plug 'NLKNguyen/papercolor-theme'
+
+" Other
+Plug 'kana/vim-operator-user'
+Plug 'haya14busa/vim-operator-flashy'
+Plug 'tpope/vim-abolish'
+Plug 'tpope/vim-characterize'
+Plug 'tpope/vim-dispatch'
+Plug 'twitvim/twitvim'
+
+"Neovim only
+Plug 'janko-m/vim-test'
+Plug 'kassio/neoterm'
+Plug 'benekastah/neomake'
+
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
+call plug#end()

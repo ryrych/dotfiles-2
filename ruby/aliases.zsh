@@ -1,3 +1,6 @@
-alias sc='script/console'
-alias sg='script/generate'
-alias sd='script/destroy'
+alias rc="rails console"
+alias rdc="rake db:create"
+alias rdd="rake db:drop"
+alias rdm="rake db:migrate"
+alias rds="rake db:seed"
+alias rs="rails server"

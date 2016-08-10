@@ -1,0 +1,104 @@
+" inline-to-reference urls in markdown (http://www.drbunsen.org/markdown-formatting/)
+function! Formd(option)
+    :let save_view = winsaveview()
+    :let flag = a:option
+    :if flag == "-r"
+    :%! ~/.local/bin/formd -r
+    :elseif flag == "-i"
+    :%! ~/.local/bin/formd -i
+    :else
+    :%! ~/.local/bin/formd -f
+    :endif
+    :call winrestview(save_view)
+endfunction
+
+command Formd :call Formd("-f")
+
+function! SetupWriting()
+    setlocal spell spelllang=en
+    setlocal nospell
+    setlocal wrap linebreak nolist
+    setlocal textwidth=0 wrapmargin=0
+    setlocal formatoptions-=t
+    map <leader>g :Goyo<CR>:GitGutterEnable<CR>
+endfunction
+
+command SetupWriting :call SetupWriting()
+
+function! SetupWritingPL()
+    :setlocal spell spelllang=pl
+    :nnoremap <silent> <leader>qpl :call textobj#quote#init({ 'double':'„”', 'single':'‚’' })<cr>
+endfunction
+
+command SetupWritingPL :call SetupWritingPL()
+
+function! SetupProtip()
+    :!git stash save -u 'before protips is published'
+
+    :let g:start_time         = localtime()
+    :let g:protipDate         = strftime("%Y-%m-%d")
+    :let g:blogPath           = '~/projects/ryrych_blog/'
+    :let l:protipTemplatePath = g:blogPath . 'protip-template.md'
+    :let l:newProtipPath      = g:blogPath . '_drafts/' . g:protipDate . "-protip.md"
+
+    :exe 'edit ' . l:newProtipPath
+    :exe '0read ' . l:protipTemplatePath
+    :call SetupWriting()
+    :Goyo
+    :!open http://localhost:4000
+endfunction
+
+command SetupProtip :call SetupProtip()
+
+function! MakeProtipUrl()
+    :let g:newProtipFileName = tolower(@t)
+    :let g:newProtipFileName = substitute(g:newProtipFileName, "[\*\`\.\?\:]*", '', 'g')
+    :let g:newProtipFileName = substitute(g:newProtipFileName, "[~ ]", '-', 'g')
+    :let g:newProtipFileName = g:protipDate . '-' . g:newProtipFileName
+    :let g:protipUrl         = g:blogPath . '_protips/' . g:newProtipFileName . '.md'
+    :let l:protipBlogUrl     = "http://ryrych.pl/protips/" . g:newProtipFileName
+    :let @h                  = l:protipBlogUrl
+endfunction
+
+command MakeProtipUrl :call MakeProtipUrl()
+
+function! PublishProtip()
+    :3s/new_title/\=@t/e
+    :call ReplaceKbd()
+    :call RenameFile(g:protipUrl)
+    let l:end_time = localtime()
+    let time_spent = append(line('$'), 'This protip has been written in ' . ( end_time - g:start_time ) . ' seconds')
+
+    :Gw
+    :echo system("git ci ". '-m ' . string(@t))
+    :!git push origin master
+    :PosttoTwitter
+
+    " _protips/2016-05-11-setting-mark-points-in-vim.md
+    " http://ryrych.pl/protips/2016-05-11-setting-mark-points-in-vim/
+
+    " twit title + url based on that from reg "t(http://vimawesome.com/plugin/twitvim)
+    :!git stash pop
+endfunction
+
+command PublishProtip :call PublishProtip()
+
+function! ReplaceKbd()
+    " <k>Ctrl</k> => <kbd>Ctrl</kbd>
+    :%s/<k>/<kbd>/ge
+    :%s/<\/k>/<\/kbd>/ge
+endfunction
+
+command ReplaceKbd :call ReplaceKbd()
+
+" Little modified version of
+" http://stackoverflow.com/a/20836543
+function! RenameFile(name)
+    let l:old_name = expand('%')
+    let l:new_name = a:name
+    if new_name != '' && new_name != old_name
+        exec ':saveas ' . new_name
+        exec ':silent !rm ' . old_name
+        redraw!
+    endif
+endfunction

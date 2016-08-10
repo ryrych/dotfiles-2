@@ -4,30 +4,89 @@
 [hub]
         protocol = https
 [alias]
+        aliases = !git config --get-regexp 'alias.*' | colrm 1 6 | sed 's/[ ]/ = /'
+        assume = update-index --assume-unchanged
+        assumed = "!git ls-files -v | grep ^h | cut -c 3-"
+        br = branch
+        cb = checkout -
+        ci = commit
+        cia = commit --amend
+        cl = clone
         co = checkout
-        promote = !$ZSH/bin/git-promote
-        wtf     = !$ZSH/bin/git-wtf
-        rank-contributors = !$ZSH/bin/git-rank-contributors
-        count   = !git shortlog -sn
+        com = checkout master
+        cp = cherry-pick
+        dc = diff --cached
+        df = diff
+        dlc = diff --cached HEAD^
+        fe = fetch
+        filelog = log -u
+        fl = log -u
+        lasttag = describe --tags --abbrev=0
+        ld = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=relative
+        lds = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=short
+        le = log --oneline --decorate
+        lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+        ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
+        lm = log --oneline --decorate --merges
+        lmm = log --oneline --decorate --merges origin/master --not master
+        lnc = log --pretty=format:"%h\\ %s\\ [%cn]"
+        ls = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate
+        lt = describe --tags --abbrev=0
+        pf = push --force-with-lease
+        pu = pull
+        pushall = push --recurse-submodules=on-demand
+        r = reset
+        r1 = reset HEAD^
+        r2 = reset HEAD^^
+        rb = rebase
+        rba = rebase --abort
+        rbc = rebase --continue
+        rbi = rebase -i
+        rbm = rebase master
+        rh = reset --hard
+        rh1 = reset HEAD^ --hard
+        rh2 = reset HEAD^^ --hard
+        s  = status -s
+        sa = stash apply
+        sh = show --color-words
+        sl = stash list
+        sortdiff = !sh -c 'git diff "$@" | grep "^[+-]" | sort --key=1.2 | uniq -u -s1
+        ss = stash save
+        st = status
+        tree = log --oneline --decorate --graph
+        unassume = update-index --no-assume-unchanged
+        undo=reset --hard
+        unstage = reset HEAD --
+        wdc = diff --cached --color-words
+        wdf = diff --color-words
+        who = shortlog -s --
 [color]
+        branch = auto
         diff = auto
         status = auto
-        branch = auto
         ui = true
+[color "diff-highlight"]
+        newHighlight = green bold 22
+        newNormal = green bold
+        oldHighlight = red bold 52
+        oldNormal = red bold
 [core]
+        autocrlf = input
+        editor = nvim -f
         excludesfile = ~/.gitignore
-        editor = vim
-[apply]
-        whitespace = nowarn
-[mergetool]
-        keepBackup = false
-[difftool]
-        prompt = false
-[help]
-        autocorrect = 1
+[merge]
+        conflictstyle = diff3
+        ff = only
+        tool = opendiff
+[pager]
+        diff = diff-so-fancy | less --tabs=4 -RFX
+        show = diff-so-fancy
+[pull]
+        rebase = true
 [push]
-        # See `git help config` (search for push.default)
-        # for more information on different options of the below setting.
-        #
-        # Setting to git 2.0 default to suppress warning message
         default = simple
+[rebase]
+        autostash = true
+        autosquash = true
+[rerere]
+        enabled = true
