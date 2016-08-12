@@ -36,10 +36,10 @@ let &colorcolumn=join(range(91,999),",")
 let mapleader=","
 noremap \ ,
 
-let g:dotfilesPath  = '~/.dotfiles/vim/'
-let g:vimrcBundles  = g:dotfilesPath . 'vimrc.bundles.symlink'
-let g:vimrcAugroups = g:dotfilesPath . 'vimrc.augroups.symlink'
-let g:vimrcWriting  = g:dotfilesPath . 'vimrc.writing.symlink'
+let g:dotfilesPath  = '~/dotfiles/'
+let g:vimrcBundles  = g:dotfilesPath . 'vimrc.bundles'
+let g:vimrcAugroups = g:dotfilesPath . 'vimrc.augroups'
+let g:vimrcWriting  = g:dotfilesPath . 'vimrc.writing'
 
 exe 'source ' g:vimrcBundles
 
